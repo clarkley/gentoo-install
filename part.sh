@@ -9,7 +9,7 @@ parted $disk_path mklabel gpt
 # efi partition
 parted -a minimal $disk_path mkpart esp fat32 0% $efi_end
 parted $disk_path set 1 esp on
-mkfs.fat ${disk_path}1
+mkfs.vfat ${disk_path}1
 
 # boot partition
 parted -a minimal $disk_path mkpart boot $boot_type $boot_start $boot_end
@@ -26,7 +26,6 @@ vgcreate $lvm_label $disk_lvm
 # swap partition in lvm
 lvcreate -L $lvm_swap_size -n swap $lvm_label
 mkswap $lvm_swap
-swapon $lvm_swap
 
 # root partition in lvm
 lvcreate -L $lvm_root_size -n root $lvm_label
