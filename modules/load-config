@@ -1,0 +1,8 @@
+. default.conf
+
+if [[ "$1" != "" && -e ./profiles/$1 ]]; then
+    . ./profiles/$1
+elif [[ "$1" != "" ]]; then
+    echo "Profile '$1' does not exists."
+    exit -1
+fi
