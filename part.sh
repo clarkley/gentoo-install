@@ -3,12 +3,35 @@
 . modules/load-config
 
 disk_path=/dev/$disk_dev
+# start a new partition
 parted $disk_path mklabel gpt
-parted --align optimal $disk_path mkpart esp fat32 $efi_start $efi_end
-parted $disk_path name 1 esp
+
+# efi partition
+parted -a minimal $disk_path mkpart esp fat32 $efi_start $efi_end
 parted $disk_path set 1 esp on
-parted --align optimal $disk_path mkpart primary $boot_type $boot_start $boot_end
-parted $disk_path name 2 boot
-parted --align optimal $disk_path mkpart primary $boot_end 100%
-parted $disk_path name 3 lvm
+mkfs -t fat32 ${disk_path}1
+
+# boot partition
+parted -a minimal $disk_path mkpart boot $boot_type $boot_start $boot_end
+mkfs -t $boot_type ${disk_path}2
+
+# lvm partition
+parted -a minimal $disk_path mkpart lvm $boot_end 100%
 parted $disk_path set 3 lvm on
+
+disk_lvm="/dev/${disk_dev}3"
+pvcreate $disk_lvm
+vgcreate $lvm_label $disk_lvm
+
+# swap partition in lvm
+lvcreate -L $lvm_swap_size -n swap $lvm_swap_label
+mkswap $lvm_swap
+swapon $lvm_swap
+
+# root partition in lvm
+lvcreate -L $lvm_root_size -n swap $lvm_root_label
+mkfs -t $lvm_root_type $lvm_root
+
+# home partition in lvm
+lvcreate -l 100%VG -n swap $lvm_home_label
+mkfs -t $lvm_home_type $lvm_home
