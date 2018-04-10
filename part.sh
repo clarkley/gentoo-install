@@ -24,14 +24,14 @@ pvcreate $disk_lvm
 vgcreate $lvm_label $disk_lvm
 
 # swap partition in lvm
-lvcreate -L $lvm_swap_size -n swap $lvm_swap_label
+lvcreate -L $lvm_swap_size -n swap $lvm_label
 mkswap $lvm_swap
 swapon $lvm_swap
 
 # root partition in lvm
-lvcreate -L $lvm_root_size -n root $lvm_root_label
+lvcreate -L $lvm_root_size -n root $lvm_label
 mkfs -t $lvm_root_type $lvm_root
 
 # home partition in lvm
-lvcreate -l 100%VG -n home $lvm_home_label
+lvcreate -l 100%VG -n home $lvm_label
 mkfs -t $lvm_home_type $lvm_home
