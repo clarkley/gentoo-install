@@ -7,16 +7,16 @@ disk_path=/dev/$disk_dev
 parted $disk_path mklabel gpt
 
 # efi partition
-parted -a optimal $disk_path mkpart esp fat32 0% $efi_end
+parted -a minimal $disk_path mkpart esp fat32 0% $efi_end
 parted $disk_path set 1 esp on
-mkfs -t fat32 ${disk_path}1
+mkfs.fat ${disk_path}1
 
 # boot partition
-parted -a optimal $disk_path mkpart boot $boot_type $boot_start $boot_end
+parted -a minimal $disk_path mkpart boot $boot_type $boot_start $boot_end
 mkfs -t $boot_type ${disk_path}2
 
 # lvm partition
-parted -a optimal $disk_path mkpart lvm $boot_end 100%
+parted -a minimal $disk_path mkpart lvm $boot_end 100%
 parted $disk_path set 3 lvm on
 
 disk_lvm="/dev/${disk_dev}3"
