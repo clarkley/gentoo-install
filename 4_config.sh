@@ -24,3 +24,21 @@ echo "127.0.0.1 $host_name localhost" >> /etc/hosts
 
 # change root password
 passwd
+
+emerge --ask app-admin/metalog
+emerge --ask net-misc/dhcpcd
+emerge --ask sys-fs/xfsprogs
+rc-update add sshd default
+
+# config bootloader
+emerge --ask sys-boot/grub:2
+grub-install --target=x86_64-efi --efi-directory=$boot_mount
+grub-mkconfig -o /boot/grub/grub.cfg
+
+# adding an everyday user
+read -p "Adding everyday user: " username
+useradd -m -G wheel -s /bin/bash $username
+passwd $username
+
+emerge --ask --changed-use --deep --with-bdeps=y @world
+echo "Installation completed. Now reboot the computer."
