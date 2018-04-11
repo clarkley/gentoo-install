@@ -31,9 +31,11 @@ links https://www.gentoo.org/downloads/mirrors/
 tar xpf stage3-*.tar.* --xattrs-include='*.*' --numeric-owner -C $root_mount
 config_set $root_mount/etc/portage/make.conf CFLAGS "-march=native -O2 -pipe"
 config_set $root_mount/etc/portage/make.conf CXXFLAGS "\${CFLAGS}"
-config_set $root_mount/etc/portage/make.conf MAKEOPTS "-j2"
+config_set $root_mount/etc/portage/make.conf MAKEOPTS "-j8"
+config_set $root_mount/etc/portage/make.conf GENTOO_MIRRORS "http://mirrors.163.com/gentoo"
+config_set $root_mount/etc/portage/make.conf SYNC "rsync://mirrors.163.com/gentoo-portage"
+config_set $root_mount/etc/portage/make.conf VIDEO_CARDS "nvidia"
 
-mirrorselect -i -o >> $root_mount/etc/portage/make.conf
 mkdir -p $root_mount/etc/portage/repos.conf
 cp $root_mount/usr/share/portage/config/repos.conf $root_mount/etc/portage/repos.conf/gentoo.conf
 cp --dereference /etc/resolv.conf $root_mount/etc/
