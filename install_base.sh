@@ -2,6 +2,8 @@
 
 . modules/init
 
+vgchange -a y $lvm_label
+
 # format system folders
 swapoff $lvm_swap
 mkswap -f $lvm_swap
@@ -16,7 +18,6 @@ umount $root_mount/dev
 umount $root_mount
 mkfs -t $boot_type -f $boot_dev
 mkfs -t $lvm_root_type -f $lvm_root
-
 mkdir -p $root_mount
 mount $lvm_root $root_mount
 mkdir -p $root_mount/tmp
