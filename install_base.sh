@@ -16,8 +16,9 @@ umount $root_mount/sys
 umount $root_mount/dev
 umount $root_mount/dev
 umount $root_mount
-mkfs -t $boot_type -f $boot_dev
+mkfs -t $boot_type $boot_dev
 mkfs -t $lvm_root_type -f $lvm_root
+
 mkdir -p $root_mount
 mount $lvm_root $root_mount
 mkdir -p $root_mount/tmp
@@ -27,7 +28,7 @@ ntpd -q -g
 
 links https://www.gentoo.org/downloads/mirrors/
 
-tar xpf stage3-*.tar.{bz2,xz} --xattrs-include='*.*' --numeric-owner -C $root_mount
+tar xpf stage3-*.tar.* --xattrs-include='*.*' --numeric-owner -C $root_mount
 config_set $root_mount/etc/portage/make.conf CFLAGS "-march=native -O2 -pipe"
 config_set $root_mount/etc/portage/make.conf CXXFLAGS "\${CFLAGS}"
 config_set $root_mount/etc/portage/make.conf MAKEOPTS "-j2"
