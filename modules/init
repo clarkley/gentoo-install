@@ -11,6 +11,6 @@ fi
 # usage: config_set [file] [variable] [value]
 ##
 config_set() {
-    sed "/$2\s*=\s*\.*/d" $1
+    sed -i '' "/$2\s*=\s*\.*/d" $1
     echo "$2=\"$3\"" >> $1
 }
