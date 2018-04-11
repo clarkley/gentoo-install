@@ -5,8 +5,8 @@
 source /etc/profile
 export PS1="(chroot) ${PS1}"
 
-mkdir -p /boot
-mount $boot_dev /boot
+mkdir -p $boot_mount
+mount $boot_dev $boot_mount
 
 emerge-webrsync
 emerge --sync

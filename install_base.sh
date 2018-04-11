@@ -3,9 +3,16 @@
 . modules/init
 
 # format system folders
+swapoff $lvm_swap
 mkswap $lvm_swap
+
+umount $boot_mount
 mkfs -f -t $boot_type $boot_dev
+
+umount $lvm_root
 mkfs -f -t $lvm_root_type $lvm_root
+
+umount $lvm_home
 mkfs -f -t $lvm_home_type $lvm_home
 
 swapon $lvm_swap
