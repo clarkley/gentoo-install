@@ -33,7 +33,6 @@ config_set $root_mount/etc/portage/make.conf CFLAGS "-march=native -O2 -pipe"
 config_set $root_mount/etc/portage/make.conf CXXFLAGS "\${CFLAGS}"
 config_set $root_mount/etc/portage/make.conf MAKEOPTS "-j8"
 config_set $root_mount/etc/portage/make.conf GENTOO_MIRRORS "http://mirrors.163.com/gentoo"
-config_set $root_mount/etc/portage/make.conf SYNC "rsync://mirrors.163.com/gentoo-portage"
 config_set $root_mount/etc/portage/make.conf VIDEO_CARDS "nvidia"
 
 mkdir -p $root_mount/etc/portage/repos.conf
