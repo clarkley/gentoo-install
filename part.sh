@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-. modules/load-config
+. modules/init
 
 disk_path=/dev/$disk_dev
 # start a new partition

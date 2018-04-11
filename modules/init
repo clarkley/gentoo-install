@@ -6,3 +6,11 @@ elif [[ "$1" != "" ]]; then
     echo "Profile '$1' does not exists."
     exit -1
 fi
+
+##
+# usage: config_set [file] [variable] [value]
+##
+config_set() {
+    sed "/$2\s*=\s*\.*/d" $1
+    echo "$2=\"$3\"" >> $1
+}
