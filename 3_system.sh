@@ -34,6 +34,7 @@ locale-gen
 echo "LANG=\"zh_CN.UTF-8\"" >> /etc/env.d/02locale
 echo "LC_COLLATE=\"zh_CN.UTF-8\"" >> /etc/env.d/02locale
 echo "LC_CTYPE=\"en_AU.UTF-8\"" >> /etc/env.d/02locale
+config_set /etc/rc.conf unicode yes
 env-update && source /etc/profile && export PS1="(chroot) $PS1"
 
 # setup fstab

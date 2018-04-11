@@ -29,6 +29,7 @@ ntpd -q -g
 links https://www.gentoo.org/downloads/mirrors/
 
 tar xpf stage3-*.tar.* --xattrs-include='*.*' --numeric-owner -C $root_mount
+config_set $root_mount/etc/portage/make.conf USE "unicode"
 config_set $root_mount/etc/portage/make.conf CFLAGS "-march=native -O2 -pipe"
 config_set $root_mount/etc/portage/make.conf CXXFLAGS "\${CFLAGS}"
 config_set $root_mount/etc/portage/make.conf MAKEOPTS "-j8"
