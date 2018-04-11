@@ -4,7 +4,7 @@ Automated gentoo installation script
 #### First things first
 Download this from github using command
 ```
-curl -sLk --user xianzhengzhou https://github.com/xianzhengzhou/gentoo-install/archive/master.zip -o tmp.zip; unzip tmp.zip; rm -f tmp.zip
+curl -sLk --user xianzhengzhou https://github.com/xianzhengzhou/gentoo-install/archive/master.zip -o tmp.zip; unzip tmp.zip; rm -f tmp.zip; cd gentoo-install-master
 
 ```
 
@@ -12,4 +12,7 @@ curl -sLk --user xianzhengzhou https://github.com/xianzhengzhou/gentoo-install/a
 ```
 vgs
 vgremove [group name]
+./install_partition.sh
 ```
+
+####

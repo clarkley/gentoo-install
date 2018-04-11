@@ -9,19 +9,18 @@ parted $disk_path mklabel gpt
 # efi partition
 parted -a minimal $disk_path mkpart esp fat32 0% $efi_end
 parted $disk_path set 1 esp on
-mkfs.vfat ${disk_path}1
+mkfs.vfat $efi_dev
 
 # boot partition
 parted -a minimal $disk_path mkpart boot $boot_type $boot_start $boot_end
-mkfs -t $boot_type ${disk_path}2
+mkfs -t $boot_type $boot_dev
 
 # lvm partition
 parted -a minimal $disk_path mkpart lvm $boot_end 100%
 parted $disk_path set 3 lvm on
 
-disk_lvm="/dev/${disk_dev}3"
-pvcreate $disk_lvm
-vgcreate $lvm_label $disk_lvm
+pvcreate $lvm_dev
+vgcreate $lvm_label $lvm_dev
 
 # swap partition in lvm
 lvcreate -L $lvm_swap_size -n swap $lvm_label
