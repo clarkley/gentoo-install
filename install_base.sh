@@ -4,9 +4,9 @@
 
 # format system folders
 mkswap $lvm_swap
-mkfs -t $boot_type $boot_dev
-mkfs -t $lvm_root_type $lvm_root
-mkfs -t $lvm_home_type $lvm_home
+mkfs -f -t $boot_type $boot_dev
+mkfs -f -t $lvm_root_type $lvm_root
+mkfs -f -t $lvm_home_type $lvm_home
 
 swapon $lvm_swap
 
