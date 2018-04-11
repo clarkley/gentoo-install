@@ -34,4 +34,6 @@ mount --rbind /sys $root/sys
 mount --make-rslave $root/sys
 mount --rbind /dev $root/dev
 mount --make-rslave $root/dev
+
+cp -r . $root/root/install
 chroot $root /bin/bash
