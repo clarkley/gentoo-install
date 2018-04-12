@@ -7,8 +7,7 @@ read -p "Hostname: " host_name
 config_set /etc/conf.d/hostname hostname $host_name
 
 #install network tools
-emerge --ask --noreplace -net-misc/netifrc
-read -p
+emerge --ask --noreplace net-misc/netifrc
 config_set /etc/conf.d/net hostname $host_name
 
 for iface in $(ls /sys/class/net); do

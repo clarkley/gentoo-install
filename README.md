@@ -12,7 +12,11 @@ curl -sLk --user xianzhengzhou https://github.com/xianzhengzhou/gentoo-install/a
 ```
 vgs
 vgremove [group name]
-./install_partition.sh
+./1_partition.sh
 ```
 
 ####
+Once partition is done. Proceed with:
+```
+./2_base.sh
+```
