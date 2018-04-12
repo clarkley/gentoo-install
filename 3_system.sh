@@ -51,8 +51,8 @@ mount /home
 # kernel
 emerge --ask sys-kernel/gentoo-sources
 cd /usr/src/linux; make defconfig
-config_set /usr/src/linux/.config CONFIG_XFS_FS 'y'
-config_set /usr/src/linux/.config CONFIG_USB_XHCI_HCD 'y'
+config_set /usr/src/linux/.config CONFIG_XFS_FS 'y' 'n'
+config_set /usr/src/linux/.config CONFIG_USB_XHCI_HCD 'y' 'n'
 make && make modules_install && make install
 
 
