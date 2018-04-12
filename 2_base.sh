@@ -23,6 +23,11 @@ umount $root_mount
 mkfs -t $boot_type $boot_dev
 mkfs -t $lvm_root_type -f $lvm_root
 
+read -p "Format home directory(y/n)?" format_home
+if [[ $format_home = 'y' ]]; then
+    mkfs -t $lvm_home_type lvm_home
+fi
+
 mkdir -p $root_mount
 mount $lvm_root $root_mount
 mkdir -p $root_mount/tmp
