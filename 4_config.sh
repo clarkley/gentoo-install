@@ -40,5 +40,4 @@ read -p "Adding everyday user: " username
 useradd -m -G wheel -s /bin/bash $username
 passwd $username
 
-emerge --changed-use --deep --with-bdeps=y @world
 echo "Installation completed. Now reboot the computer."

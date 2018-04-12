@@ -48,11 +48,15 @@ mkdir -p $efi_mount
 mount $efi_mount
 mount $lvm_home_mount
 
+emerge --changed-use --deep --with-bdeps=y @world
+
 # kernel
 emerge sys-kernel/gentoo-sources sys-kernel/linux-firmware
 cd /usr/src/linux; make defconfig
 config_set /usr/src/linux/.config CONFIG_XFS_FS 'y' 'n'
 config_set /usr/src/linux/.config CONFIG_USB_XHCI_HCD 'y' 'n'
+config_set /usr/src/linux/.config CONFIG_EFI_STUB 'y' 'n'
+config_set /usr/src/linux/.config CONFIG_EFI_MIXED 'y' 'n'
 make && make modules_install && make install
 
 
