@@ -16,6 +16,10 @@ umount $root_mount/sys
 umount $root_mount/dev
 umount $root_mount/dev
 umount $root_mount
+umount $efi_mount
+umount $boot_mount
+umount $lvm_home_mount
+umount $root_mount
 mkfs -t $boot_type $boot_dev
 mkfs -t $lvm_root_type -f $lvm_root
 
@@ -50,3 +54,7 @@ mount --make-rslave $root_mount/dev
 
 cp -r . $root_mount/root/install
 chroot $root_mount /bin/bash
+cd /root/install
+
+source /etc/profile
+export PS1="(chroot) ${PS1}"
