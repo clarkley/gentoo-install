@@ -8,6 +8,7 @@ config_set /etc/conf.d/hostname hostname $host_name
 
 #install network tools
 emerge --ask --noreplace net-misc/netifrc
+touch /etc/conf.d/net
 config_set /etc/conf.d/net hostname $host_name
 
 for iface in $(ls /sys/class/net); do
