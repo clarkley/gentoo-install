@@ -59,7 +59,3 @@ mount --make-rslave $root_mount/dev
 
 cp -r . $root_mount/root/install
 chroot $root_mount /bin/bash
-cd /root/install
-
-source /etc/profile
-export PS1="(chroot) ${PS1}"
