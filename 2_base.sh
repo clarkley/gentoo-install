@@ -44,7 +44,7 @@ config_set $root_mount/etc/portage/make.conf L10N "zh-CN en-US"
 config_set $root_mount/etc/portage/make.conf GRUB_PLATFORMS "efi-64"
 config_set $root_mount/etc/portage/make.conf CFLAGS "-march=native -O2 -pipe"
 config_set $root_mount/etc/portage/make.conf CXXFLAGS "\${CFLAGS}"
-config_set $root_mount/etc/portage/make.conf MAKEOPTS "-j8"
+config_set $root_mount/etc/portage/make.conf MAKEOPTS "-j${n_core}"
 config_set $root_mount/etc/portage/make.conf GENTOO_MIRRORS "http://mirrors.163.com/gentoo"
 config_set $root_mount/etc/portage/make.conf VIDEO_CARDS "nvidia"
 

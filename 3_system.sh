@@ -78,7 +78,7 @@ config_set $conf CONFIG_PROC_FS_VMCORE 'y' 'n'
 config_remove $conf CONFIG_PPP
 
 config_set $conf CONFIG_X86_AMD_PLATFORM_DEVICE 'y' 'n'
-config_set $conf CONFIG_MK8 'y 'n'
+config_set $conf CONFIG_MK8 'y' 'n'
 config_set $conf CONFIG_CPU_SUP_AMD 'y' 'n'
 config_set $conf CONFIG_X86_64_SMP 'y' 'n'
 config_set $conf CONFIG_SCHED_SMT 'y' 'n'
@@ -92,7 +92,7 @@ config_set $conf CONFIG_X86_POWERNOW_K8 'y' 'n'
 config_set $conf CONFIG_X86_AMD_FREQ_SENSITIVITY 'y' 'n'
 config_set $conf CONFIG_IOMMU_SUPPORT 'y' 'n'
 config_set $conf CONFIG_AMD_IOMMU 'y' 'n'
-config_set $conf CONFIG_AMD_IOMMU_V2 'y 'n'
+config_set $conf CONFIG_AMD_IOMMU_V2 'y' 'n'
 
 config_set $conf CONFIG_HID 'y' 'n'
 config_set $conf CONFIG_HID_BATTERY_STRENGTH 'y' 'n'
@@ -109,6 +109,6 @@ config_set $conf CONFIG_EFI_PARTITION 'y' 'n'
 config_set $conf CONFIG_EFI_STUB 'y' 'n'
 config_set $conf CONFIG_EFI_MIXED 'y' 'n'
 config_set $conf CONFIG_EFI_VARS 'y' 'n'
-make && make modules_install && make install
+make -j${n_core} && make -j${n_core} modules_install && make install
 
 genkernel --lvm --install initramfs
