@@ -51,12 +51,64 @@ mount $lvm_home_mount
 emerge --changed-use --deep --with-bdeps=y @world
 
 # kernel
+conf=/usr/src/linux/.config
 emerge sys-kernel/gentoo-sources sys-kernel/linux-firmware sys-kernel/genkernel
 cd /usr/src/linux; make localmodconfig
-config_set /usr/src/linux/.config CONFIG_XFS_FS 'y' 'n'
-config_set /usr/src/linux/.config CONFIG_USB_XHCI_HCD 'y' 'n'
-config_set /usr/src/linux/.config CONFIG_EFI_STUB 'y' 'n'
-config_set /usr/src/linux/.config CONFIG_EFI_MIXED 'y' 'n'
+config_set $conf CONFIG_MODULES 'y' 'n'
+config_set $conf CONFIG_MTRR 'y' 'n'
+config_remove $conf CONFIG_AGP
+
+config_set $conf CONFIG_FB 'y' 'n'
+config_remove $conf CONFIG_FB_NVIDIA
+config_remove $conf CONFIG_FB_RIVA
+config_remove $conf CONFIG_DRM_NOUVEAU
+
+config_set $conf CONFIG_DEVTMPFS 'y' 'n'
+config_set $conf CONFIG_SCSI_MOD 'y' 'n'
+config_set $conf CONFIG_SCSI 'y' 'n'
+config_set $conf CONFIG_SCSI_DMA 'y' 'n'
+config_set $conf CONFIG_SCSI_NETLINK 'y' 'n'
+config_set $conf CONFIG_SCSI_MQ_DEFAULT 'y' 'n'
+config_set $conf CONFIG_SCSI_PROC_FS 'y' 'n'
+
+config_set $conf CONFIG_XFS_FS 'y' 'n'
+config_set $conf CONFIG_PROC_FS 'y' 'n'
+config_set $conf CONFIG_PROC_FS_VMCORE 'y' 'n'
+
+config_remove $conf CONFIG_PPP
+
+config_set $conf CONFIG_X86_AMD_PLATFORM_DEVICE 'y' 'n'
+config_set $conf CONFIG_MK8 'y 'n'
+config_set $conf CONFIG_CPU_SUP_AMD 'y' 'n'
+config_set $conf CONFIG_X86_64_SMP 'y' 'n'
+config_set $conf CONFIG_SCHED_SMT 'y' 'n'
+config_set $conf CONFIG_SCHED_MC 'y' 'n'
+config_set $conf CONFIG_X86_MCE 'y' 'n'
+config_set $conf CONFIG_X86_MCE_AMD 'y' 'n'
+config_set $conf CONFIG_MICROCODE 'y' 'n'
+config_set $conf CONFIG_MICROCODE_AMD 'y' 'n'
+config_set $conf CONFIG_PERF_EVENTS_AMD_POWER 'y' 'n'
+config_set $conf CONFIG_X86_POWERNOW_K8 'y' 'n'
+config_set $conf CONFIG_X86_AMD_FREQ_SENSITIVITY 'y' 'n'
+config_set $conf CONFIG_IOMMU_SUPPORT 'y' 'n'
+config_set $conf CONFIG_AMD_IOMMU 'y' 'n'
+config_set $conf CONFIG_AMD_IOMMU_V2 'y 'n'
+
+config_set $conf CONFIG_HID 'y' 'n'
+config_set $conf CONFIG_HID_BATTERY_STRENGTH 'y' 'n'
+config_set $conf CONFIG_HIDRAW 'y' 'n'
+config_set $conf CONFIG_UHID 'y' 'n'
+config_set $conf CONFIG_HID_GENERIC 'y' 'n'
+config_set $conf CONFIG_USB_XHCI_HCD 'y' 'n'
+config_set $conf CONFIG_USB_EHCI_HCD 'y' 'n'
+
+config_set $conf CONFIG_IA32_EMULATION 'y' 'n'
+
+config_set $conf CONFIG_PARTITION_ADVANCED 'y' 'n'
+config_set $conf CONFIG_EFI_PARTITION 'y' 'n'
+config_set $conf CONFIG_EFI_STUB 'y' 'n'
+config_set $conf CONFIG_EFI_MIXED 'y' 'n'
+config_set $conf CONFIG_EFI_VARS 'y' 'n'
 make && make modules_install && make install
 
 genkernel --lvm --install initramfs

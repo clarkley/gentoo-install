@@ -25,7 +25,7 @@ echo "127.0.0.1 $host_name localhost" >> /etc/hosts
 # change root password
 passwd
 
-emerge app-admin/metalog net-misc/dhcpcd sys-fs/xfsprogs
+emerge app-admin/metalog net-misc/dhcpcd sys-fs/xfsprogs dev-util/nvidia-cuda-toolkit
 rc-update add sshd default
 
 # config bootloader
