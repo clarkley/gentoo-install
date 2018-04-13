@@ -52,7 +52,7 @@ emerge --changed-use --deep --with-bdeps=y @world
 
 # kernel
 emerge sys-kernel/gentoo-sources sys-kernel/linux-firmware sys-kernel/genkernel
-cd /usr/src/linux; make defconfig
+cd /usr/src/linux; make localmodconfig
 config_set /usr/src/linux/.config CONFIG_XFS_FS 'y' 'n'
 config_set /usr/src/linux/.config CONFIG_USB_XHCI_HCD 'y' 'n'
 config_set /usr/src/linux/.config CONFIG_EFI_STUB 'y' 'n'
