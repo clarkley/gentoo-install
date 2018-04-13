@@ -18,3 +18,10 @@ config_set() {
         echo "$2=\"$3\"" >> $1
     fi
 }
+
+##
+# usage: config_remove [file] [variable]
+##
+config_remove() {
+    sed -i "/$2\s*=\s*\.*/d" $1
+}
