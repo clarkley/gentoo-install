@@ -27,11 +27,11 @@ echo "Asia/Chongqing" > /etc/timezone
 emerge --config sys-libs/timezone-data
 
 # locale
-echo "en_US ISO-8859-1" >> /etc/locale.gen
+echo "en_US ISO-8859-1" > /etc/locale.gen
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 echo "zh_CN.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
-echo "LANG=\"en_US.UTF-8\"" >> /etc/env.d/02locale
+echo "LANG=\"en_US.UTF-8\"" > /etc/env.d/02locale
 echo "LC_COLLATE=\"en_US.UTF-8\"" >> /etc/env.d/02locale
 echo "LC_CTYPE=\"en_US.UTF-8\"" >> /etc/env.d/02locale
 config_set /etc/rc.conf unicode yes
@@ -109,6 +109,8 @@ config_set $conf CONFIG_EFI_PARTITION 'y' 'n'
 config_set $conf CONFIG_EFI_STUB 'y' 'n'
 config_set $conf CONFIG_EFI_MIXED 'y' 'n'
 config_set $conf CONFIG_EFI_VARS 'y' 'n'
+
+config_set $conf CONFIG_R8169 'y' 'n'
 make -j${n_core} && make -j${n_core} modules_install && make install
 
 genkernel --lvm --install initramfs

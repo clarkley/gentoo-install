@@ -19,17 +19,16 @@ for iface in $(ls /sys/class/net); do
     fi
 done
 
-# hosts
-echo "127.0.0.1 $host_name localhost" >> /etc/hosts
-
 # change root password
 passwd
 
-emerge app-admin/metalog net-misc/dhcpcd sys-fs/xfsprogs dev-util/nvidia-cuda-toolkit
+emerge app-admin/metalog net-misc/dhcpcd sys-fs/xfsprogs app-admin/sudo dev-util/nvidia-cuda-toolkit
 rc-update add sshd default
 
 # config bootloader
 emerge sys-boot/grub:2
+config_set /etc/default/grub GRUB_PRELOAD_MODULES lvm
+config_set /etc/default/grub GRUB_CMDLINE_LINUX_DEFAULT dolvm
 grub-install --target=x86_64-efi --boot-directory=$boot_mount --efi-directory=$efi_mount --bootloader-id=grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
