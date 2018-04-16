@@ -22,7 +22,7 @@ done
 # change root password
 passwd
 
-emerge app-admin/metalog net-misc/dhcpcd sys-fs/xfsprogs app-admin/sudo dev-util/nvidia-cuda-toolkit
+emerge app-admin/metalog net-misc/dhcpcd sys-fs/xfsprogs app-admin/sudo dev-util/nvidia-cuda-toolkit net-misc/openssh
 rc-update add sshd default
 
 # config bootloader
