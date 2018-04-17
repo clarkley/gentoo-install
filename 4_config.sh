@@ -10,6 +10,7 @@ config_set /etc/conf.d/hostname hostname $host_name
 emerge --noreplace net-misc/netifrc
 touch /etc/conf.d/net
 config_set /etc/conf.d/net hostname $host_name
+config_set /etc/conf.d/net dns_domain_lo ${net_domain}
 
 for iface in $(ls /sys/class/net); do
     if [[ $iface != 'lo' ]]; then
@@ -27,8 +28,9 @@ rc-update add sshd default
 
 # config bootloader
 emerge sys-boot/grub:2
-config_set /etc/default/grub GRUB_PRELOAD_MODULES lvm
-config_set /etc/default/grub GRUB_CMDLINE_LINUX_DEFAULT dolvm
+config_set /etc/default/grub GRUB_PRELOAD_MODULES ${grub_modules}
+config_set /etc/default/grub GRUB_CMDLINE_LINUX_DEFAULT ${grub_params}
+config_set /etc/default/grub GRUB_TERMINAL console
 grub-install --target=x86_64-efi --boot-directory=$boot_mount --efi-directory=$efi_mount --bootloader-id=grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
