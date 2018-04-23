@@ -56,12 +56,12 @@ emerge sys-kernel/gentoo-sources sys-kernel/linux-firmware sys-kernel/genkernel
 cd /usr/src/linux; make localmodconfig
 
 # adding kernel modules needed
-for adding in ${kernel_mod_adds}; do
+for adding in ${kernel_mod_adds[*]}; do
     config_set ${conf} ${adding} 'y' 'n'
 done
 
 # remove unnecessary kernel modules
-for removal in ${kernel_mod_removals}; do
+for removal in ${kernel_mod_removals[*]}; do
     config_remove ${conf} ${removal}
 done
 

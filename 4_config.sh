@@ -24,11 +24,11 @@ done
 passwd
 
 # install additional tools
-for tool in ${packages_install}; do
+for tool in ${packages_install[*]}; do
     emerge ${tool}
 done
 # adding startup apps
-for auto_tool in ${auto_tools}; do
+for auto_tool in ${auto_tools[*]}; do
     rc-update add ${auto_tool} default
 done
 
