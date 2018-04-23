@@ -53,7 +53,7 @@ emerge --changed-use --deep --with-bdeps=y @world
 # kernel
 conf=/usr/src/linux/.config
 emerge sys-kernel/gentoo-sources sys-kernel/linux-firmware sys-kernel/genkernel
-cd /usr/src/linux; make localmodconfig
+cd /usr/src/linux; make defconfig
 
 # adding kernel modules needed
 for adding in ${kernel_mod_adds[*]}; do

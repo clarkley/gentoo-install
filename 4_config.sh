@@ -35,7 +35,7 @@ done
 # config bootloader
 emerge sys-boot/grub:2
 config_set /etc/default/grub GRUB_PRELOAD_MODULES ${grub_modules}
-config_set /etc/default/grub GRUB_CMDLINE_LINUX_DEFAULT ${grub_params}
+config_set /etc/default/grub GRUB_CMDLINE_LINUX_DEFAULT "${grub_params}"
 config_set /etc/default/grub GRUB_TERMINAL console
 grub-install --target=x86_64-efi --boot-directory=${boot_mount} --efi-directory=${efi_mount} --bootloader-id=grub
 grub-mkconfig -o /boot/grub/grub.cfg
