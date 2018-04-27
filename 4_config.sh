@@ -14,8 +14,8 @@ config_set /etc/conf.d/net dns_domain_lo ${net_domain}
 
 for iface in $(ls /sys/class/net); do
     if [[ $iface != 'lo' ]]; then
-        config_set /etc/conf.d/net "config_$iface" dhcp
-        ln -s /etc/init.d/net.lo /etc/init.d/net.$iface
+        config_set /etc/conf.d/net "config_${iface}" dhcp
+        ln -s /etc/init.d/net.lo /etc/init.d/net.${iface}
         rc-update add net.${iface} default
     fi
 done

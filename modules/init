@@ -25,6 +25,7 @@ while [[ $chosen_profile -le 0 || $confirm_profile != 'y' ]]; do
     read -p "You have chosen to load ${profiles[${chosen_profile}]}. Correct(y/n)?" confirm_profile
 done
 . profiles/${profiles[${chosen_profile}]}
+
 ##
 # usage: config_set [file] [variable] [value]
 ##
@@ -42,4 +43,35 @@ config_set() {
 ##
 config_remove() {
     sed -i "/$2\s*=\s*\.*/d" $1
+}
+
+##
+# usage: pack_partition [label] [group] [mount] [type] [size]
+##
+pack_partition() {
+    echo "${1}:${2}:${3}:${4}:${5}"
+}
+
+part_extract() {
+    echo ${1} | sed -nr "s/([^:]+):([^:]+):([^:]*):([^:]*):([^:]*)/\\${2}/p"
+}
+
+part_label() {
+    part_extract ${1} 1
+}
+
+part_lvm_group() {
+    part_extract ${1} 2
+}
+
+part_mount() {
+    part_extract ${1} 3
+}
+
+part_type() {
+    part_extract ${1} 4
+}
+
+part_size() {
+    part_extract ${1} 5
 }

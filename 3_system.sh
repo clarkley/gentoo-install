@@ -38,15 +38,22 @@ config_set /etc/rc.conf unicode yes
 env-update && source /etc/profile && export PS1="(chroot) $PS1"
 
 # setup fstab
-echo "$boot_dev /boot $boot_type defaults,noatime 0 2" >> /etc/fstab
-echo "$efi_dev /boot/efi vfat defaults 0 1" >> /etc/fstab
-echo "$lvm_swap none swap defaults 0 0" >> /etc/fstab
-echo "$lvm_root / $lvm_root_type defaults,noatime 0 1" >> /etc/fstab
-echo "$lvm_home /home $lvm_home_type defaults,noatime 0 2" >> /etc/fstab
-mount $boot_mount
-mkdir -p $efi_mount
-mount $efi_mount
-mount $lvm_home_mount
+echo "${boot_dev} /boot ${boot_type} defaults,noatime 0 2" >> /etc/fstab
+echo "${efi_dev} /boot/efi vfat defaults 0 1" >> /etc/fstab
+echo "${lvm_swap} none swap defaults 0 0" >> /etc/fstab
+echo "${lvm_root} / $lvm_root_type defaults,noatime 0 1" >> /etc/fstab
+mount ${boot_mount}
+mkdir -p ${efi_mount}
+mount ${efi_mount}
+
+for lvm_data in ${lvm_datas[*]}; do
+    lvm_mount="$(part_mount ${lvm_data})"
+    if [[ "" != "$lvm_mount" ]]; then
+        echo "/dev/$(part_lvm_group ${lvm_data})/$(part_label ${lvm_data}) ${lvm_mount} $(part_type ${lvm_data}) defaults,noatime 0 2" >> /etc/fstab
+        mkdir -p ${lvm_mount}
+        mount ${lvm_mount}
+    fi
+done
 
 emerge --changed-use --deep --with-bdeps=y @world
 
