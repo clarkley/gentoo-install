@@ -1,31 +1,3 @@
-. profiles/default.conf
-
-if [[ "$1" != "" && -e profiles/$1 ]]; then
-    . profiles/$1
-elif [[ "$1" != "" ]]; then
-    echo "Profile '$1' does not exists."
-    exit -1
-fi
-
-echo "Profiles Available:"
-prof_index=1
-profiles=()
-for prof in $(ls profiles); do
-    if [[ ${prof} != 'default.conf' && ${prof} =~ (.+)\.conf ]]; then
-        echo "        [${prof_index}] ${BASH_REMATCH[1]}"
-        profiles[${prof_index}]=${prof}
-        prof_index=$((prof_index + 1))
-    fi
-done
-
-chosen_profile=''
-confirm_profile='n'
-while [[ $chosen_profile -le 0 || $confirm_profile != 'y' ]]; do
-    read -p "Profile number to choose: " chosen_profile
-    read -p "You have chosen to load ${profiles[${chosen_profile}]}. Correct(y/n)?" confirm_profile
-done
-. profiles/${profiles[${chosen_profile}]}
-
 ##
 # usage: config_set [file] [variable] [value]
 ##
@@ -75,3 +47,31 @@ part_type() {
 part_size() {
     part_extract ${1} 5
 }
+
+. profiles/default.conf
+
+if [[ "$1" != "" && -e profiles/$1 ]]; then
+    . profiles/$1
+elif [[ "$1" != "" ]]; then
+    echo "Profile '$1' does not exists."
+    exit -1
+fi
+
+echo "Profiles Available:"
+prof_index=1
+profiles=()
+for prof in $(ls profiles); do
+    if [[ ${prof} != 'default.conf' && ${prof} =~ (.+)\.conf ]]; then
+        echo "        [${prof_index}] ${BASH_REMATCH[1]}"
+        profiles[${prof_index}]=${prof}
+        prof_index=$((prof_index + 1))
+    fi
+done
+
+chosen_profile=''
+confirm_profile='n'
+while [[ $chosen_profile -le 0 || $confirm_profile != 'y' ]]; do
+    read -p "Profile number to choose: " chosen_profile
+    read -p "You have chosen to load ${profiles[${chosen_profile}]}. Correct(y/n)?" confirm_profile
+done
+. profiles/${profiles[${chosen_profile}]}
