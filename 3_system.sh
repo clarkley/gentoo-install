@@ -48,7 +48,7 @@ mount ${efi_mount}
 
 for lvm_data in ${lvm_datas[*]}; do
     lvm_mount="$(part_mount ${lvm_data})"
-    if [[ "" != "$lvm_mount" ]]; then
+    if [[ "" != "${lvm_mount}" ]]; then
         echo "/dev/$(part_lvm_group ${lvm_data})/$(part_label ${lvm_data}) ${lvm_mount} $(part_type ${lvm_data}) defaults,noatime 0 2" >> /etc/fstab
         mkdir -p ${lvm_mount}
         mount ${lvm_mount}

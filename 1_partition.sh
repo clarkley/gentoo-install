@@ -45,7 +45,7 @@ for lvm_data in ${lvm_datas[*]}; do
 
     # format if partition type is defined
     lvm_type="$(part_type ${lvm_data})"
-    if [[ "" != "{lvm_type}" ]]; then
+    if [[ "" != "${lvm_type}" ]]; then
         mkfs -t ${lvm_type} /dev/${lvm_data_group}/${lvm_label}
     fi
 done
