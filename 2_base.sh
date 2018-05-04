@@ -32,11 +32,12 @@ mkfs -t ${lvm_root_type} -f ${lvm_root}
 
 # ask if data partitions should be formatted
 for lvm_data in ${lvm_datas[*]}; do
+    lvm_label="$(part_label ${lvm_data})"
     lvm_type="$(part_type ${lvm_data})"
     lvm_device="/dev/$(part_lvm_group ${lvm_data})/$(part_label ${lvm_data})"
     format_data='n'
     if [[ "" != "${lvm_type}" ]]; then
-        read -p "Format data directory(y/n)?" format_data
+        read -p "Format [${lvm_label}] directory(y/n)?" format_data
         if [[ ${format_data} = 'y' ]]; then
             mkfs -t ${lvm_type} -f ${lvm_device}
         fi
