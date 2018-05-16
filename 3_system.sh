@@ -62,9 +62,14 @@ conf=/usr/src/linux/.config
 emerge sys-kernel/gentoo-sources sys-kernel/linux-firmware sys-kernel/genkernel
 cd /usr/src/linux; make defconfig
 
-# adding kernel modules needed
-for adding in ${kernel_mod_adds[*]}; do
+# adding kernel builtins needed
+for adding in ${kernel_builtin_adds[*]}; do
     config_set ${conf} ${adding} 'y' 'n'
+done
+
+# adding kernel modules needed
+for adding in ${kernel_module_adds[*]}; do
+    config_set ${conf} ${adding} 'm' 'n'
 done
 
 # remove unnecessary kernel modules
