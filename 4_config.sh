@@ -45,4 +45,6 @@ read -p "Adding everyday user: " username
 useradd -m -G wheel -s /bin/bash ${username}
 passwd ${username}
 
+emerge --depclean --ask
+
 echo "Installation completed. Now reboot the computer."
