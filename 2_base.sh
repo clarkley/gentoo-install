@@ -54,7 +54,8 @@ ntpd -q -g
 links https://www.gentoo.org/downloads/mirrors/
 
 tar xpf stage3-*.tar.* --xattrs-include='*.*' --numeric-owner -C ${root_mount}
-config_set ${root_mount}/etc/portage/make.conf USE "${global_use}"
+config_set ${root_mount}/etc/portage/make.conf PYTHON_SINGLE_TARGET ${global_python}
+config_set ${root_mount}/etc/portage/make.conf USE "${global_use} python_targets_\${PYTHON_SINGLE_TARGET}"
 config_set ${root_mount}/etc/portage/make.conf ACCEPT_KEYWORDS "${global_accept}"
 config_set ${root_mount}/etc/portage/make.conf LINGUAS "zh en"
 config_set ${root_mount}/etc/portage/make.conf L10N "zh-CN en-US"

@@ -55,6 +55,8 @@ for lvm_data in ${lvm_datas[*]}; do
     fi
 done
 
+emerge app-portage/cpuid2cpuflags
+echo "*/* $(cpuid2cpuflags)" > /etc/portage/package.use/00cpu-flags
 emerge --changed-use --deep --with-bdeps=y @world
 
 # kernel
